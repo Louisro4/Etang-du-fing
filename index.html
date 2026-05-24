@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Étang du Fung — Guide Voyageurs</title>
+  <style>
+    :root {
+      --green:   #2e7d32;
+      --green2:  #4a7c59;
+      --light:   #f1f8f3;
+      --orange:  #bf360c;
+      --blue:    #0277bd;
+      --brown:   #4e342e;
+      --purple:  #6a1b9a;
+      --text:    #1a1a1a;
+      --muted:   #555;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8faf8; color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 40%, #40916c 70%, #52b788 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 20px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0,120 Q150,60 300,100 Q450,140 600,80 Q750,20 900,90 Q1050,160 1200,70 L1200,200 L0,200Z' fill='rgba(0,0,0,0.15)'/%3E%3C/svg%3E") bottom/cover no-repeat;
+    }
+    .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; letter-spacing: -0.5px; position: relative; }
+    .hero .sub { margin-top: 10px; font-size: 1.05rem; opacity: .85; position: relative; }
+    .hero .badge {
+      display: inline-block; margin-top: 18px;
+      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35);
+      border-radius: 30px; padding: 6px 18px; font-size: .9rem; position: relative;
+    }
+
+    /* ── NAV CARDS ── */
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      max-width: 860px;
+      margin: -28px auto 0;
+      padding: 0 20px;
+      position: relative; z-index: 10;
+    }
+    .nav-card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.10);
+      padding: 20px 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+      text-decoration: none;
+      color: inherit;
+      border-top: 4px solid var(--green);
+    }
+    .nav-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+    .nav-card .icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .nav-card .label { font-size: .85rem; font-weight: 700; color: var(--green); }
+
+    /* ── CONTENT ── */
+    .container { max-width: 860px; margin: 40px auto; padding: 0 20px; }
+    section { margin-bottom: 40px; }
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--green);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px 10px 0 0;
+      font-size: 1.05rem; font-weight: 800;
+    }
+    .section-header.orange { background: var(--orange); }
+    .section-header.blue   { background: var(--blue); }
+    .section-header.brown  { background: var(--brown); }
+    .section-header.purple { background: var(--purple); }
+    .section-header.teal   { background: #00695c; }
+    .section-header.dark   { background: #37474f; }
+    .section-body {
+      background: white;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 14px rgba(0,0,0,.07);
+      padding: 22px;
+    }
+
+    /* ── ITEMS ── */
+    .item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+    .item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .item-title { font-weight: 700; font-size: 1rem; color: var(--green); margin-bottom: 6px; }
+    .item-title.orange { color: var(--orange); }
+    .item-title.blue   { color: var(--blue); }
+    .item-title.brown  { color: var(--brown); }
+    .item-title.purple { color: var(--purple); }
+    .item-title.teal   { color: #00695c; }
+    .item p { font-size: .93rem; color: var(--muted); line-height: 1.6; margin-bottom: 5px; }
+    .item .meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+    }
+    .tag {
+      background: var(--light); color: var(--green);
+      border-radius: 20px; padding: 3px 10px; font-size: .78rem; font-weight: 600;
+    }
+    .tag.orange { background: #fbe9e7; color: var(--orange); }
+    .tag.blue   { background: #e3f2fd; color: var(--blue); }
+    .tag.red    { background: #ffebee; color: #c62828; }
+    .tag.grey   { background: #f5f5f5; color: #555; }
+
+    .link-btn {
+      display: inline-block; margin-top: 8px;
+      background: var(--light); color: var(--green);
+      border: 1.5px solid var(--green2);
+      border-radius: 6px; padding: 5px 12px;
+      font-size: .82rem; font-weight: 700; text-decoration: none;
+      transition: background .15s;
+    }
+    .link-btn:hover { background: var(--green); color: white; }
+    .link-btn.orange { background: #fbe9e7; color: var(--orange); border-color: var(--orange); }
+    .link-btn.orange:hover { background: var(--orange); color: white; }
+    .link-btn.blue { background: #e3f2fd; color: var(--blue); border-color: var(--blue); }
+    .link-btn.blue:hover { background: var(--blue); color: white; }
+
+    /* ── RÈGLES ── */
+    .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .rule-card {
+      background: #fff8f8; border: 1.5px solid #ffcdd2;
+      border-radius: 10px; padding: 14px;
+      font-size: .88rem; color: var(--text);
+    }
+    .rule-card .rule-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .rule-card strong { display: block; margin-bottom: 4px; color: #c62828; font-size: .9rem; }
+
+    /* ── ÉQUIPEMENTS ── */
+    .equip-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+    .equip-list li { padding: 6px 10px; background: var(--light); border-radius: 6px; font-size: .88rem; }
+    .equip-list li::before { content: '✔ '; color: var(--green); font-weight: 700; }
+
+    /* ── URGENCES ── */
+    .urgence-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .urgence-card {
+      background: #ffebee; border-radius: 10px; padding: 14px;
+      text-align: center; border: 1.5px solid #ef9a9a;
+    }
+    .urgence-card .num { font-size: 1.6rem; font-weight: 900; color: #c62828; }
+    .urgence-card .name { font-size: .8rem; color: #555; margin-top: 2px; }
+
+    /* ── DISTANCES ── */
+    .dist-row { display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px dashed #ddd; font-size: .92rem; }
+    .dist-row:last-child { border-bottom: none; }
+    .dist-time { font-weight: 700; color: var(--green); font-size: .85rem; }
+
+    /* ── DRIVE BANNER ── */
+    .drive-banner {
+      background: linear-gradient(135deg, #1565c0, #0288d1);
+      color: white; border-radius: 12px; padding: 24px;
+      text-align: center; margin-bottom: 40px;
+    }
+    .drive-banner h3 { font-size: 1.15rem; margin-bottom: 8px; }
+    .drive-banner p { font-size: .9rem; opacity: .9; margin-bottom: 16px; }
+    .drive-btn {
+      display: inline-block; background: white; color: #1565c0;
+      border-radius: 8px; padding: 10px 24px; font-weight: 800;
+      text-decoration: none; font-size: .95rem;
+      transition: transform .15s;
+    }
+    .drive-btn:hover { transform: scale(1.04); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green); color: white;
+      text-align: center; padding: 30px 20px;
+      font-size: .88rem; opacity: .95;
+    }
+    footer p { margin-bottom: 4px; }
+
+    @media(max-width:500px) {
+      .hero { padding: 44px 16px 40px; }
+      .nav-cards { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<div class="hero">
+  <h1>🌿 L'Étang du Fung</h1>
+  <p class="sub">Olby · Puy-de-Dôme · Auvergne · Chaîne des Puys UNESCO</p>
+  <span class="badge">📍 Guide complet pour vos voyageurs</span>
+</div>
+
+<!-- ══ NAV RAPIDE ════════════════════════════════════════════════ -->
+<div class="nav-cards">
+  <a class="nav-card" href="#logement">
+    <span class="icon">🏡</span>
+    <span class="label">Le Logement</span>
+  </a>
+  <a class="nav-card" href="#reglement" style="border-color:#c62828">
+    <span class="icon">📋</span>
+    <span class="label">Règlement</span>
+  </a>
+  <a class="nav-card" href="#activites" style="border-color:#0277bd">
+    <span class="icon">🗺️</span>
+    <span class="label">Activités</span>
+  </a>
+  <a class="nav-card" href="#urgences" style="border-color:#c62828">
+    <span class="icon">🆘</span>
+    <span class="label">Urgences</span>
+  </a>
+  <a class="nav-card" href="#pratique" style="border-color:#37474f">
+    <span class="icon">ℹ️</span>
+    <span class="label">Infos Pratiques</span>
+  </a>
+</div>
+
+<div class="container">
+
+  <!-- ══ DRIVE ══════════════════════════════════════════════════ -->
+  <div class="drive-banner" style="margin-top:44px">
+    <h3>📂 Tous les documents & photos en un clic</h3>
+    <p>Guide des activités, règlement, photos du gîte — tout est disponible en ligne.</p>
+    <a class="drive-btn" href="https://drive.google.com/drive/folders/1-Guz4rZS5KWMOhFtBs-y2Uv6fbwn3JCo" target="_blank">
+      Ouvrir le dossier Google Drive →
+    </a>
+  </div>
+
+  <!-- ══ LOGEMENT ═══════════════════════════════════════════════ -->
+  <section id="logement">
+    <div class="section-header">🏡 Le Logement</div>
+    <div class="section-body">
+      <div class="item">
+        <p>Gîte entièrement rénové au cœur de l'Auvergne, face à un <strong>étang privé</strong>. Grande salle de vie sous charpente à la française avec poutres apparentes, ouvrant sur la terrasse et l'étang. Idéal pour familles, groupes d'amis, séminaires.</p>
+        <div class="meta" style="margin-top:12px">
+          <span class="tag">👥 8 personnes max</span>
+          <span class="tag">🛏 2 chambres</span>
+          <span class="tag">🚿 Salle de douche italienne</span>
+          <span class="tag">📶 Wi-Fi inclus</span>
+          <span class="tag">🚗 Parking gratuit</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-title">✔ Équipements inclus</div>
+        <ul class="equip-list">
+          <li>Billard américain</li>
+          <li>Poêle à bois</li>
+          <li>Écran projection</li>
+          <li>Télévision</li>
+          <li>Cuisine équipée</li>
+          <li>Lave-linge</li>
+          <li>Terrasse & jardin</li>
+          <li>Salon de jardin</li>
+          <li>Barbecue</li>
+          <li>Wi-Fi</li>
+          <li>Draps & serviettes</li>
+          <li>Détecteur de fumée</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="item-title">🌊 L'Étang & la Nature</div>
+        <p>L'étang privé est le cœur du domaine. Pêche depuis les berges, promenades, observation des oiseaux (canards, hérons, martins-pêcheurs). La nature s'offre à vous dès la porte d'entrée.</p>
+        <p style="margin-top:6px"><strong>⚠️ Baignade dans l'étang interdite</strong> — pêche autorisée avec votre matériel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RÈGLEMENT ══════════════════════════════════════════════ -->
+  <section id="reglement">
+    <div class="section-header" style="background:#c62828">📋 Règlement Intérieur</div>
+    <div class="section-body">
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="rule-icon">🕐</div>
+          <strong>Horaires</strong>
+          Arrivée dès 15h00<br>Départ avant 11h00
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">👥</div>
+          <strong>Capacité max</strong>
+          8 personnes<br>Pas de visiteurs non déclarés
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🔇</div>
+          <strong>Tranquillité</strong>
+          Silence après 22h00<br>Fêtes interdites
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🚬</div>
+          <strong>Tabac</strong>
+          Interdit à l'intérieur<br>Extérieur uniquement
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🐕</div>
+          <strong>Animaux</strong>
+          Acceptés avec accord<br>préalable obligatoire
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🏊</div>
+          <strong>Étang</strong>
+          Baignade INTERDITE<br>Pêche autorisée
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🧹</div>
+          <strong>Propreté</strong>
+          Gîte rendu propre<br>Vaisselle faite
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🔥</div>
+          <strong>Poêle à bois</strong>
+          Bûches fournies<br>Jamais sans surveillance
+        </div>
+      </div>
+      <p style="margin-top:18px;font-size:.85rem;color:var(--muted)">
+        ⚠️ Tout dommage constaté sera facturé. Le non-respect du règlement peut entraîner une résiliation immédiate du séjour sans remboursement.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ ACTIVITÉS ══════════════════════════════════════════════ -->
+  <section id="activites">
+    <div class="section-header blue">🗺️ Activités & Découvertes</div>
+    <div class="section-body">
+
+      <!-- Rando -->
+      <div class="item">
+        <div class="item-title blue">🥾 Randonnée à pied</div>
+        <p><strong>⭐ Le Tilleul d'Olby — depuis le gîte à pied !</strong></p>
+        <div class="meta">
+          <span class="tag blue">16 km</span><span class="tag blue">5h10</span><span class="tag grey">Moyenne</span>
+        </div>
+        <p>Ce circuit longe l'Étang du Fung. Vue sur prairies, Sioule et volcans.</p>
+        <a class="link-btn blue" href="https://www.visorando.com/randonnee-le-tilleul-d-olby-et-le-pont-du-glav/" target="_blank">Topo GPS →</a>
+        <a class="link-btn blue" href="https://www.visorando.com/randonnee-olby/" target="_blank" style="margin-left:6px">Toutes les randos →</a>
+      </div>
+
+      <!-- Volcans -->
+      <div class="item">
+        <div class="item-title orange">🌋 Puy de Dôme ⭐ (~15 min)</div>
+        <div class="meta">
+          <span class="tag orange">1 465 m</span>
+          <span class="tag orange">UNESCO</span>
+          <span class="tag grey">Train 18 € adulte / 11 € enfant</span>
+        </div>
+        <p>Vue 360° sur toute la Chaîne des Puys. Accès gratuit à pied par le Sentier des Muletiers.</p>
+        <a class="link-btn orange" href="https://www.panoramiquedesdomes.fr/" target="_blank">Panoramique des Dômes →</a>
+      </div>
+
+      <!-- Lac Aydat -->
+      <div class="item">
+        <div class="item-title blue">🌊 Lac d'Aydat (~10 min)</div>
+        <div class="meta">
+          <span class="tag blue">Baignade surveillée</span>
+          <span class="tag blue">Kayak</span>
+          <span class="tag blue">Paddle</span>
+          <span class="tag blue">Voile</span>
+          <span class="tag blue">Pédalo</span>
+        </div>
+        <p>Lac volcanique naturel · plage gratuite juillet–août · location de bateaux sur place.</p>
+        <a class="link-btn blue" href="https://www.lac-aydat.fr/" target="_blank">Site officiel →</a>
+      </div>
+
+      <!-- Vulcania -->
+      <div class="item">
+        <div class="item-title orange">🎢 Vulcania (~20 min)</div>
+        <div class="meta">
+          <span class="tag orange">Adulte 39 €</span>
+          <span class="tag orange">Enfant 30 €</span>
+          <span class="tag orange">-5 ans Gratuit</span>
+        </div>
+        <p>Parc Européen du Volcanisme — simulateurs 4D, attractions, spectacles. Idéal en famille.</p>
+        <a class="link-btn orange" href="https://www.vulcania.com/" target="_blank">Réserver →</a>
+      </div>
+
+      <!-- VTT -->
+      <div class="item">
+        <div class="item-title" style="color:#2e7d32">🚴 Vélo & VTT</div>
+        <p><strong>Terra Volcana</strong> — 6 circuits VTT balisés de 20 à 65 km autour des volcans.</p>
+        <p><strong>GTMC</strong> — Grande Traversée du Massif Central passe à Olby.</p>
+        <a class="link-btn" href="https://www.auvergne-volcans.com/itineraire/vtt-terra-volcana/" target="_blank">Terra Volcana →</a>
+        <a class="link-btn" href="https://www.komoot.com/guide/264/puy-de-dome" target="_blank" style="margin-left:6px">Komoot →</a>
+      </div>
+
+      <!-- Aventure -->
+      <div class="item">
+        <div class="item-title purple">⚡ Aventure & Sensations</div>
+        <div class="meta">
+          <span class="tag" style="background:#f3e5f5;color:var(--purple)">🪂 Parapente ~130 €</span>
+          <span class="tag" style="background:#f3e5f5;color:var(--purple)">🧗 Via Ferrata ~15 €</span>
+          <span class="tag" style="background:#f3e5f5;color:var(--purple)">⛷ Ski 40 min</span>
+        </div>
+        <p>Parapente biplace au-dessus des volcans · Via Ferrata Gorges de la Sioule · Ski Super-Besse & Mont-Dore.</p>
+        <a class="link-btn" style="background:#f3e5f5;color:var(--purple);border-color:var(--purple)" href="https://www.parapente-auvergne.com/" target="_blank">Parapente →</a>
+        <a class="link-btn" style="background:#f3e5f5;color:var(--purple);border-color:var(--purple);margin-left:6px" href="https://www.superbesse.com/" target="_blank">Super-Besse →</a>
+      </div>
+
+      <!-- Culture -->
+      <div class="item">
+        <div class="item-title brown">🏛 Culture & Patrimoine</div>
+        <div class="meta">
+          <span class="tag grey">Clermont-Fd 30 min</span>
+          <span class="tag grey">Château Tournoël 20 min</span>
+          <span class="tag grey">Orcival 20 min</span>
+          <span class="tag grey">Riom 25 min</span>
+          <span class="tag grey">Issoire 35 min</span>
+        </div>
+        <a class="link-btn" style="background:#efebe9;color:var(--brown);border-color:var(--brown)" href="https://www.clermontauvergnerometropole.fr/tourisme/" target="_blank">Clermont Tourisme →</a>
+      </div>
+
+      <!-- Gastronomie -->
+      <div class="item">
+        <div class="item-title" style="color:#2e7d32">🍽️ Gastronomie Auvergnate</div>
+        <p>Saint-Nectaire · Cantal · Fourme d'Ambert · Truffade · Aligot · Côtes d'Auvergne IGP</p>
+        <p style="margin-top:6px"><strong>Marché de Rochefort-Montagne</strong> — samedi matin (~10 min)</p>
+        <a class="link-btn" href="https://www.fromages-aop-auvergne.com/" target="_blank">Route des Fromages →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ URGENCES ═══════════════════════════════════════════════ -->
+  <section id="urgences">
+    <div class="section-header" style="background:#c62828">🆘 Numéros d'Urgence</div>
+    <div class="section-body">
+      <div class="urgence-grid">
+        <div class="urgence-card"><div class="num">15</div><div class="name">SAMU</div></div>
+        <div class="urgence-card"><div class="num">17</div><div class="name">Police</div></div>
+        <div class="urgence-card"><div class="num">18</div><div class="name">Pompiers</div></div>
+        <div class="urgence-card"><div class="num">112</div><div class="name">Urgences Europe</div></div>
+      </div>
+      <div style="margin-top:16px;font-size:.9rem">
+        <div class="dist-row"><span>🏥 Médecin & Pharmacie</span><span class="dist-time">Rochefort-Montagne · 10 min</span></div>
+        <div class="dist-row"><span>🏨 Hôpital</span><span class="dist-time">Clermont-Ferrand · 30 min</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ INFOS PRATIQUES ════════════════════════════════════════ -->
+  <section id="pratique">
+    <div class="section-header dark">ℹ️ Infos Pratiques</div>
+    <div class="section-body">
+      <div class="dist-row"><span>🏪 Supermarché</span><span class="dist-time">Rochefort-Montagne · 10 min</span></div>
+      <div class="dist-row"><span>🥖 Boulangerie</span><span class="dist-time">Rochefort-Montagne · 10 min</span></div>
+      <div class="dist-row"><span>🏦 Distributeur</span><span class="dist-time">Rochefort-Montagne · 10 min</span></div>
+      <div class="dist-row"><span>⛽ Station essence</span><span class="dist-time">Rochefort-Montagne · 10 min</span></div>
+      <div class="dist-row"><span>📶 Réseau 4G</span><span class="dist-time">Orange / SFR / Bouygues</span></div>
+      <div class="dist-row"><span>🚗 Voiture</span><span class="dist-time">Indispensable</span></div>
+      <div class="dist-row"><span>🌡️ Météo locale</span>
+        <a href="https://www.meteofrance.fr/previsions-meteo-france/olby/63700" target="_blank" class="dist-time" style="text-decoration:none">Météo France ↗</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<footer>
+  <p>🌿 L'Étang du Fung · Olby, Puy-de-Dôme (63) · Auvergne</p>
+  <p style="opacity:.7;font-size:.8rem;margin-top:6px">Chaîne des Puys — Patrimoine Mondial UNESCO · Informations non contractuelles</p>
+</footer>
+
+</body>
+</html>
